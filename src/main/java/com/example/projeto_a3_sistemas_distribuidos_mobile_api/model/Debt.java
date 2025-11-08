@@ -8,10 +8,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import lombok.Data;
-
 
 @Data
 @Entity
@@ -21,17 +22,13 @@ public class Debt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(nullable = false)
     private String debtName;
 
-    //@OneToMany(
-    //    mappedBy = "", 
-    //    cascade = CascadeType.ALL,
-    //    orphanRemoval = true
-    //)
-    //@Column(nullable = false)
-    //private String IdFinancialInstitution;
+    @OneToOne
+    @JoinColumn(name = "id_financial_institution", nullable = false)
+    private FinancialInstitution idFinancialInstitution;
 
     @Column(nullable = false)
     private BigDecimal totalDebt;
@@ -47,5 +44,5 @@ public class Debt {
 
     @Column(nullable = false)
     private Date dueDate;
-    
+
 }
