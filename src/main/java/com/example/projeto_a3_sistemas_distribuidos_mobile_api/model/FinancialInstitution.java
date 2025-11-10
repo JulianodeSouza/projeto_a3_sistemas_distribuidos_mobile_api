@@ -25,6 +25,6 @@ public class FinancialInstitution {
     private String name;
     
     @Column(nullable = false)
-    private BigDecimal monthlyInterestRate;
+    private BigDecimal AverageInterestRate;
 
 }

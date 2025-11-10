@@ -34,7 +34,7 @@ public class UserController {
     // --- CREATE ---
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        user.setPass(passwordEncoder.encode(user.getPass())); // Criptografa aqui
+        user.setPass(passwordEncoder.encode(user.getPass()));
         return ResponseEntity.status(201).body(userRepository.save(user));
     }
 
