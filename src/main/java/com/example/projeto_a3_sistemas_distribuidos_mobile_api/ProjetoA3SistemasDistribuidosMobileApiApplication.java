@@ -9,5 +9,4 @@ public class ProjetoA3SistemasDistribuidosMobileApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoA3SistemasDistribuidosMobileApiApplication.class, args);
 	}
-
 }
