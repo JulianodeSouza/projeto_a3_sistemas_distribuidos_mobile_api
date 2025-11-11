@@ -1,9 +1,8 @@
 package com.example.projeto_a3_sistemas_distribuidos_mobile_api.model;
 
 import java.math.BigDecimal;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import lombok.Data;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,9 +12,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Data;
 
 
+//TRABALHAR AQUI
 @Data
 @Entity
 @Table(name = "PayoffPlan")
@@ -29,8 +28,8 @@ public class PayoffPlan {
     private BigDecimal MonthlyValue;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false) // Cria a coluna user_id no banco
-    @JsonIgnore // Evita que o usuário completo venha junto com cada dívida no JSON
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
 }

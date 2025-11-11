@@ -1,4 +1,9 @@
-package com.example.projeto_a3_sistemas_distribuidos_mobile_api.config;
+package com.example.projeto_a3_sistemas_distribuidos_mobile_api.config.security;
+
+import com.example.projeto_a3_sistemas_distribuidos_mobile_api.service.JwtService;
+import com.example.projeto_a3_sistemas_distribuidos_mobile_api.service.UserDetailsServiceImpl;
+
+import java.io.IOException;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -12,11 +17,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.projeto_a3_sistemas_distribuidos_mobile_api.service.JwtService;
-import com.example.projeto_a3_sistemas_distribuidos_mobile_api.service.UserDetailsServiceImpl;
-
-import java.io.IOException;
-
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -27,54 +27,64 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private UserDetailsServiceImpl userDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain)
             throws ServletException, IOException {
 
-        // 1. Busca o header "Authorization"
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
 
-        // 2. Se não tem header ou não começa com "Bearer ", passa para o próximo filtro (não autentica)
+        // Verifica se o cabeçalho existe e se começa com "Bearer "
+        // Se não, é uma requisição sem token (ou formato errado),
+        // então apenas a repassamos para o próximo filtro sem autenticar.
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 3. Extrai o token (remove o prefixo "Bearer ")
+        // Extrai o token JWT (removendo o prefixo "Bearer ")
         jwt = authHeader.substring(7);
 
-        // 4. Extrai o email do token
+        // Extrai o "username" (neste caso, o e-mail) de dentro do token
         try {
             userEmail = jwtService.extractUsername(jwt);
         } catch (Exception e) {
-             // Se o token for inválido ou expirado, jwtService pode lançar exceção.
-             // Nesse caso, apenas seguimos sem autenticar.
+            // Se o token estiver expirado, malformado ou inválido, o jwtService
+            // lançará uma exceção. Apenas continuamos a cadeia de filtros.
+            // O usuário não será autenticado.
             filterChain.doFilter(request, response);
             return;
         }
 
-        // 5. Se achou o email e ainda não está autenticado no contexto do Spring
+        // Se temos o e-mail e o usuário *ainda não foi autenticado* nesta requisição
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            // Carrega os detalhes do usuário do banco
+            
+            // Carrega os detalhes do usuário (UserDetails) do banco de dados
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
-            // 6. Valida se o token pertence mesmo a esse usuário e não expirou
+            // Valida o token:
+            // Compara se o usuário do token é o mesmo do banco e se o token não expirou.
             if (jwtService.isTokenValid(jwt, userDetails)) {
-                // 7. Cria o objeto de autenticação do Spring
+                
+                // Cria o "ticket" de autenticação padrão do Spring Security
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,
                         userDetails.getAuthorities()
                 );
+                
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                // 8. Salva a autenticação no contexto (usuário está logado!)
+                // Define o usuário como "logado" no contexto de segurança do Spring
+                // A partir daqui, a requisição é considerada autenticada.
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
 
-        // 9. Continua a cadeia de filtros
+        // Continua a cadeia de filtros (passa para o próximo filtro)
         filterChain.doFilter(request, response);
     }
 }

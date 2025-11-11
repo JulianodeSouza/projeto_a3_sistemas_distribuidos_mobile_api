@@ -1,4 +1,4 @@
-package com.example.projeto_a3_sistemas_distribuidos_mobile_api.config;
+package com.example.projeto_a3_sistemas_distribuidos_mobile_api.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,18 +23,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            // Desabilita o CSRF (Cross-Site Request Forgery)
+            // Essencial para APIs RESTful "stateless" que usam JWT,
+            // pois não dependemos de cookies de sessão.
             .csrf(AbstractHttpConfigurer::disable)
+
+            // Configura a autorização das requisições HTTP
             .authorizeHttpRequests(auth -> auth
-                // LIBERA O LOGIN E O CADASTRO PARA TODOS
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
-                
-                // TUDO O RESTO EXIGE AUTENTICAÇÃO
+                // Exige autenticação para qualquer outra requisição (o resto da API)
                 .anyRequest().authenticated()
             )
-            // CONFIGURA SESSÃO COMO STATELESS (SEM ESTADO)
+            
+            // Configura a política de gerenciamento de sessão
+            // Define como STATELESS (sem estado), pois usamos JWT.
+            // O Spring Security não vai criar ou usar sessões HTTP.
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            // ADICIONA NOSSO FILTRO ANTES DO FILTRO PADRÃO
+            
+            // Adiciona nosso filtro JWT
+            // Informa ao Spring para executar o 'jwtAuthFilter' ANTES do filtro padrão de
+            // autenticação de usuário/senha. É aqui que o token é validado.
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

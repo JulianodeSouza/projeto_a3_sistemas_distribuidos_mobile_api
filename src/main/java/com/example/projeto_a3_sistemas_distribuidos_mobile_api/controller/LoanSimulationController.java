@@ -17,12 +17,14 @@ public class LoanSimulationController {
     @Autowired
     private LoanSimulationService loanSimulationService;
 
+    //Exemplo de chamada: GET /api/simulations?value=1000.00&installments=12
     @GetMapping
     public ResponseEntity<List<SimulationResultDTO>> simulate(
             @RequestParam BigDecimal value,
             @RequestParam Integer installments) {
 
         List<SimulationResultDTO> results = loanSimulationService.simulateLoan(value, installments);
+        
         return ResponseEntity.ok(results);
     }
 }
