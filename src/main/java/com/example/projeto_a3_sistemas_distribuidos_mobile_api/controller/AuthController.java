@@ -26,22 +26,23 @@ public class AuthController {
     public record LoginResponse(String token) {}
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
-        
-        // Tenta autenticar o usuário usando o email e senha fornecidos.
-        // O AuthenticationManager vai chamar o nosso UserDetailsServiceImpl.
-        // Se o email ou senha estiverem errados, ele lança uma exceção (que será tratada pelo Spring).
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.email(), request.password())
-        );
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        try {
+            // Tenta autenticar. Se a senha/email estiverem errados, o erro acontece AQUI.
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(request.email(), request.password())
+            );
 
-        // Se a autenticação foi bem-sucedida, pegamos os detalhes do usuário
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            // Se passou da linha acima, deu certo! Gera o token.
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String token = jwtService.generateToken(userDetails);
 
-        // Geramos um token JWT para este usuário
-        String token = jwtService.generateToken(userDetails);
+            return ResponseEntity.ok(new LoginResponse(token));
 
-        // Retornamos o token em uma resposta 200
-        return ResponseEntity.ok(new LoginResponse(token));
+        } catch (org.springframework.security.core.AuthenticationException e) {
+            // Se der erro na autenticação (senha errada ou user não existe),
+            // nós capturamos o erro e forçamos a resposta 401 (UNAUTHORIZED).
+            return ResponseEntity.status(401).body("E-mail ou senha inválidos");
+        }
     }
 }
