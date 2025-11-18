@@ -19,30 +19,21 @@ public class AuthController {
 
     @Autowired
     private JwtService jwtService;
-
-    //DTO (Data Transfer Object) para receber os dados de login, 'record' é uma forma moderna do Java para classes de dados imutáveis.
+    
     public record LoginRequest(String email, String password) {}
-
+    
     public record LoginResponse(String token) {}
-
+        
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        try {
-            // Tenta autenticar. Se a senha/email estiverem errados, o erro acontece AQUI.
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.email(), request.password())
-            );
+        
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.email(), request.password())
+        );
 
-            // Se passou da linha acima, deu certo! Gera o token.
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            String token = jwtService.generateToken(userDetails);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String token = jwtService.generateToken(userDetails);
 
-            return ResponseEntity.ok(new LoginResponse(token));
-
-        } catch (org.springframework.security.core.AuthenticationException e) {
-            // Se der erro na autenticação (senha errada ou user não existe),
-            // nós capturamos o erro e forçamos a resposta 401 (UNAUTHORIZED).
-            return ResponseEntity.status(401).body("E-mail ou senha inválidos");
-        }
+        return ResponseEntity.ok(new LoginResponse(token));
     }
 }

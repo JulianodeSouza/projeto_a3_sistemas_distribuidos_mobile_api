@@ -4,6 +4,8 @@ import com.example.projeto_a3_sistemas_distribuidos_mobile_api.dto.UserCreateDTO
 import com.example.projeto_a3_sistemas_distribuidos_mobile_api.dto.UserResponseDTO;
 import com.example.projeto_a3_sistemas_distribuidos_mobile_api.dto.UserUpdateDTO;
 import com.example.projeto_a3_sistemas_distribuidos_mobile_api.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Optional;
 
@@ -48,5 +50,15 @@ public class UserController {
         } else {
             return ResponseEntity.notFound().build(); // 404 Not Found
         }
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserResponseDTO> getCurrentUser(Authentication authentication) {
+        // O Spring Security extrai o e-mail do Token JWT para nós
+        String email = authentication.getName();
+        
+        UserResponseDTO userDTO = userService.getUserByEmail(email);
+        
+        return ResponseEntity.ok(userDTO);
     }
 }

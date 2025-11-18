@@ -62,6 +62,12 @@ public class UserService {
         }
     }
 
+    public UserResponseDTO getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+        return toUserResponseDTO(user);
+    }
+
     // --- (MAPPER) ---
 
     /**

@@ -23,27 +23,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // Desabilita o CSRF (Cross-Site Request Forgery)
-            // Essencial para APIs RESTful "stateless" que usam JWT,
-            // pois não dependemos de cookies de sessão.
             .csrf(AbstractHttpConfigurer::disable)
-
-            // Configura a autorização das requisições HTTP
             .authorizeHttpRequests(auth -> auth
+                
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() 
+                
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
-                // Exige autenticação para qualquer outra requisição (o resto da API)
+                .requestMatchers("/api/auth/forgot-password").permitAll()
                 .anyRequest().authenticated()
             )
-            
-            // Configura a política de gerenciamento de sessão
-            // Define como STATELESS (sem estado), pois usamos JWT.
-            // O Spring Security não vai criar ou usar sessões HTTP.
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            
-            // Adiciona nosso filtro JWT
-            // Informa ao Spring para executar o 'jwtAuthFilter' ANTES do filtro padrão de
-            // autenticação de usuário/senha. É aqui que o token é validado.
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
