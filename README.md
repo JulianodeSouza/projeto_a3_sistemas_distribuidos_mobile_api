@@ -14,9 +14,12 @@ Este backend expõe uma **API RESTful** para o frontend consumir e gerenciar tod
 
 | Funcionalidade | Descrição | Status/Método Exemplo |
 | :--- | :--- | :--- |
-| **Lista de Dívidas (CRUD)** | Permite **cadastrar, visualizar, editar e excluir** (C.R.U.D.) dívidas e empréstimos. | `GET /api/dividas`, `POST /api/emprestimos` |
-| **Dashboards** | Fornece dados agregados (totais, estatísticas) para as visualizações de *dashboards*. | `GET /api/analytics/resumo` |
-| **Gerar Plano de Quitação** | Calcula e retorna um plano detalhado de pagamento para uma dívida específica. | `POST /api/simulacoes/quitar` |
+| **Cadastro de usuário ** | Permite **cadastrar, editar e excluir** usuários para que acessem as suas dashboards individualizadas. 
+| **Lista de Dívidas (CRUD)** | Permite **cadastrar, visualizar, editar e excluir** (C.R.U.D.) dívidas e empréstimos. 
+| **Dashboards** | Fornece dados agregados (totais, estatísticas) para as visualizações de *dashboards*.
+| **Gerar Plano de Quitação** | Calcula e retorna um plano detalhado de pagamento para uma dívida específica.
+| **Simular empréstimos** | Calcula e retorna as taxas de juros e totais a serem pagos com base em instituições financeiras.
+
 ---
 
 ## 🛠️ Stack Tecnológica
@@ -47,6 +50,6 @@ Certifique-se de ter os seguintes softwares instalados:
 
 ```bash
 # Clone o repositório
-git clone [[https://www.youtube.com/shorts/3mMG25WHLkU](https://www.youtube.com/shorts/3mMG25WHLkU)](https://github.com/JulianodeSouza/projeto_a3_sistemas_distribuidos_mobile_api.git)
+git clone https://github.com/JulianodeSouza/projeto_a3_sistemas_distribuidos_mobile_api.git
 cd projeto_a3_sistemas_distribuidos_mobile_api
 .\mvnw.cmd spring-boot:run // Comando para inicializar o spring
