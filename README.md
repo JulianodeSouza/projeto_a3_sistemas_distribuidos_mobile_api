@@ -12,20 +12,20 @@ Este backend expõe uma **API RESTful** para o frontend consumir e gerenciar tod
 
 ### 🎯 Funcionalidades e Endpoints-chave
 
-| Funcionalidade | Descrição
-| :--- | :--- | :--- |
-| **Cadastro de usuário** | Permite **cadastrar, editar e excluir** usuários para que acessem as suas dashboards individualizadas. 
-| **Lista de Dívidas (CRUD)** | Permite **cadastrar, visualizar, editar e excluir** (C.R.U.D.) dívidas e empréstimos. 
-| **Dashboards** | Fornece dados agregados (totais, estatísticas) para as visualizações de *dashboards*.
-| **Gerar Plano de Quitação** | Calcula e retorna um plano detalhado de pagamento para uma dívida específica.
-| **Simular empréstimos** | Calcula e retorna as taxas de juros e totais a serem pagos com base em instituições financeiras.
+| Funcionalidade | Descrição | 
+| :--- | :--- |
+| **Cadastro de usuário** | Permite **cadastrar, editar e excluir** usuários para que acessem as suas dashboards individualizadas. |
+| **Lista de Dívidas (CRUD)** | Permite **cadastrar, visualizar, editar e excluir** (C.R.U.D.) dívidas e empréstimos. |
+| **Dashboards** | Fornece dados agregados (totais, estatísticas) para as visualizações de *dashboards*. |
+| **Gerar Plano de Quitação** | Calcula e retorna um plano detalhado de pagamento para uma dívida específica. |
+| **Simular empréstimos** | Calcula e retorna as taxas de juros e totais a serem pagos com base em instituições financeiras. |
 
 ---
 
 ## 🛠️ Stack Tecnológica
 
 | Componente | Tecnologia | Descrição |
-| :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- |
 | **Linguagem** | **Java** | A linguagem principal do projeto. |
 | **Framework** | **Spring Boot** | Facilita a criação de aplicações *standalone* de nível de produção. |
 | **Persistência** | **Spring Data JPA** | Gerenciamento ORM (Mapeamento Objeto-Relacional). |
@@ -43,7 +43,8 @@ Siga os passos abaixo para clonar e rodar a aplicação localmente.
 
 Certifique-se de ter os seguintes softwares instalados:
 
-* **Java Development Kit (JDK) 17+**
+* **Java Development Kit (JDK) 21**
+* **Spring Boot 3.5.7**
 * **Maven**
 * **MySQL Server**
 
