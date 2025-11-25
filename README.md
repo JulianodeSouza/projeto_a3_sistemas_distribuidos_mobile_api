@@ -47,5 +47,6 @@ Certifique-se de ter os seguintes softwares instalados:
 
 ```bash
 # Clone o repositório
-git clone [https://www.youtube.com/shorts/3mMG25WHLkU](https://www.youtube.com/shorts/3mMG25WHLkU)
-cd [NOME DO REPOSITÓRIO]
+git clone [[https://www.youtube.com/shorts/3mMG25WHLkU](https://www.youtube.com/shorts/3mMG25WHLkU)](https://github.com/JulianodeSouza/projeto_a3_sistemas_distribuidos_mobile_api.git)
+cd projeto_a3_sistemas_distribuidos_mobile_api
+.\mvnw.cmd spring-boot:run // Comando para inicializar o spring
