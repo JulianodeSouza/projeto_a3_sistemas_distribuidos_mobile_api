@@ -53,5 +53,17 @@ Certifique-se de ter os seguintes softwares instalados:
 ```bash
 # Clone o repositório
 git clone https://github.com/JulianodeSouza/projeto_a3_sistemas_distribuidos_mobile_api.git
+```
+```bash
+# Acessar pasta com o projeto
 cd projeto_a3_sistemas_distribuidos_mobile_api
-.\mvnw.cmd spring-boot:run // Comando para inicializar o spring
+```
+```bash
+# Comando para inicializar o spring
+.\mvnw.cmd spring-boot:run
+```
+- Lembre-se de criar o banco de dados localmente (db_quitaja)
+- Alterar as variáveis no arquivo de conexão `application.properties`
+
+
+
