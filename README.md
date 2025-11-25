@@ -14,7 +14,7 @@ Este backend expõe uma **API RESTful** para o frontend consumir e gerenciar tod
 
 | Funcionalidade | Descrição | Status/Método Exemplo |
 | :--- | :--- | :--- |
-| **Cadastro de usuário ** | Permite **cadastrar, editar e excluir** usuários para que acessem as suas dashboards individualizadas. 
+| **Cadastro de usuário** | Permite **cadastrar, editar e excluir** usuários para que acessem as suas dashboards individualizadas. 
 | **Lista de Dívidas (CRUD)** | Permite **cadastrar, visualizar, editar e excluir** (C.R.U.D.) dívidas e empréstimos. 
 | **Dashboards** | Fornece dados agregados (totais, estatísticas) para as visualizações de *dashboards*.
 | **Gerar Plano de Quitação** | Calcula e retorna um plano detalhado de pagamento para uma dívida específica.
