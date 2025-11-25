@@ -12,7 +12,7 @@ Este backend expõe uma **API RESTful** para o frontend consumir e gerenciar tod
 
 ### 🎯 Funcionalidades e Endpoints-chave
 
-| Funcionalidade | Descrição | Status/Método Exemplo |
+| Funcionalidade | Descrição
 | :--- | :--- | :--- |
 | **Cadastro de usuário** | Permite **cadastrar, editar e excluir** usuários para que acessem as suas dashboards individualizadas. 
 | **Lista de Dívidas (CRUD)** | Permite **cadastrar, visualizar, editar e excluir** (C.R.U.D.) dívidas e empréstimos. 
@@ -24,13 +24,14 @@ Este backend expõe uma **API RESTful** para o frontend consumir e gerenciar tod
 
 ## 🛠️ Stack Tecnológica
 
-| Componente | Tecnologia | Versão Principal | Descrição |
+| Componente | Tecnologia | Descrição |
 | :--- | :--- | :--- | :--- |
-| **Linguagem** | **Java** | 17+ | A linguagem principal do projeto. |
-| **Framework** | **Spring Boot** | 3.x.x | Facilita a criação de aplicações *standalone* de nível de produção. |
-| **Persistência** | **Spring Data JPA** | - | Gerenciamento ORM (Mapeamento Objeto-Relacional). |
-| **Banco de Dados**| **MySQL** | - | O sistema de banco de dados relacional oficial do projeto. |
-| **Build Tool** | **Maven** | - | Gerenciamento de dependências e compilação. |
+| **Linguagem** | **Java** | A linguagem principal do projeto. |
+| **Framework** | **Spring Boot** | Facilita a criação de aplicações *standalone* de nível de produção. |
+| **Persistência** | **Spring Data JPA** | Gerenciamento ORM (Mapeamento Objeto-Relacional). |
+| **Banco de Dados**| **MySQL** | O sistema de banco de dados relacional oficial do projeto. |
+| **Build Tool** | **Maven** | Gerenciamento de dependências e compilação. |
+| **Token de login** | **JSON Web Token (JWT)** | Gerenciamento e criação dos tokens de validação para a sessão do usuário. |
 
 ---
 
