@@ -2,8 +2,6 @@
 
 Bem-vindo ao repositório do **backend** do nosso sistema de Gestão de Empréstimos e Dívidas! Este serviço, construído em **Java** com **Spring Boot**, é o coração da aplicação, responsável pela **lógica de negócio**, o **CRUD (Create, Read, Update, Delete)** das dívidas e empréstimos, e o processamento de dados para *dashboards* e simulações.
 
-
-
 ---
 
 ## ✨ Visão Geral da API
@@ -15,29 +13,29 @@ Este backend expõe uma **API RESTful** para o frontend consumir e gerenciar tod
 #### 1. Autenticação e Usuários
 Gerenciamento de acesso e perfil do usuário.
 
-| Funcionalidade | Método | Endpoint | Acesso | Descrição |
-| :--- | :---: | :--- | :---: | :--- |
-| **Login** | `POST` | `/api/auth/login` | 🌍 Público | Autentica o usuário e retorna o **Token JWT**. |
-| **Criar Conta** | `POST` | `/api/users` | 🌍 Público | Registra um novo usuário no sistema. |
-| **Dados do Usuário** | `GET` | `/api/users/me` | 🔒 Privado | Retorna os dados do usuário logado (baseado no token). |
+| Funcionalidade | Método | Endpoint | Descrição |
+| :--- | :---: | :--- | :---: |
+| **Login** | `POST` | `/api/auth/login` | Autentica o usuário e retorna o **Token JWT**. |
+| **Criar Conta** | `POST` | `/api/users` | Registra um novo usuário no sistema. |
+| **Dados do Usuário** | `GET` | `/api/users/me` | Retorna os dados do usuário logado (baseado no token). |
 
 #### 2. Gestão de Dívidas (CRUD)
 O coração do sistema. Permite ao usuário gerenciar seu portfólio financeiro.
 
-| Funcionalidade | Método | Endpoint | Acesso | Descrição |
-| :--- | :---: | :--- | :---: | :--- |
-| **Listar Dívidas** | `GET` | `/api/debt` | 🔒 Privado | Retorna todas as dívidas do usuário logado. |
-| **Cadastrar Dívida** | `POST` | `/api/debt` | 🔒 Privado | Cria uma nova dívida vinculada a uma instituição. |
-| **Atualizar Dívida** | `PUT` | `/api/debt/{id}` | 🔒 Privado | Edita valores ou detalhes de uma dívida existente. |
-| **Remover Dívida** | `DELETE` | `/api/debt/{id}` | 🔒 Privado | Exclui permanentemente um registro. |
+| Funcionalidade | Método | Endpoint | Descrição |
+| :--- | :---: | :--- | :---: |
+| **Listar Dívidas** | `GET` | `/api/debt` | Retorna todas as dívidas do usuário logado. |
+| **Cadastrar Dívida** | `POST` | `/api/debt` | Cria uma nova dívida vinculada a uma instituição. |
+| **Atualizar Dívida** | `PUT` | `/api/debt/{id}` | Edita valores ou detalhes de uma dívida existente. |
+| **Remover Dívida** | `DELETE` | `/api/debt/{id}` | Exclui permanentemente um registro. |
 
 #### 3. Inteligência Financeira (Simulações)
 Motor matemático que utiliza fórmulas de Juros Compostos (Tabela Price).
 
-| Funcionalidade | Método | Endpoint | Acesso | Descrição |
-| :--- | :---: | :--- | :---: | :--- |
-| **Simular Renegociação** | `POST` | `/api/debt/renegotiation/simulate` | 🔒 Privado | Recebe propostas (desconto, juros, prazo) e calcula o cenário "Antes vs. Depois" com a economia real gerada. |
-| **Simulador de Mercado** | `GET` | `/api/simulations` | 🔒 Privado | Compara taxas de mercado. Recebe valor/parcelas e retorna o CET de vários bancos. |
+| Funcionalidade | Método | Endpoint | Descrição |
+| :--- | :---: | :--- | :---: |
+| **Simular Renegociação** | `POST` | `/api/debt/renegotiation/simulate` | Recebe uma simulação (desconto, juros, prazo) e calcula o cenário "Antes vs. Depois" com a economia real gerada. |
+| **Simulador de Mercado** | `GET` | `/api/simulations` | Compara taxas de mercado. Recebe valor/parcelas e retorna o CET de vários bancos. |
 
 ---
 
