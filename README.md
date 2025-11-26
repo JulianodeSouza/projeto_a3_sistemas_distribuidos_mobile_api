@@ -19,7 +19,7 @@ Gerenciamento de acesso e perfil do usuário.
 | **Criar Conta** | `POST` | `/api/users` | Registra um novo usuário no sistema. |
 | **Dados do Usuário** | `GET` | `/api/users/me` | Retorna os dados do usuário logado (baseado no token). |
 
-#### 2. Gestão de Dívidas (CRUD)
+#### 2. Gestão de Dívidas
 O coração do sistema. Permite ao usuário gerenciar seu portfólio financeiro.
 
 | Funcionalidade | Método | Endpoint | Descrição |
@@ -29,7 +29,7 @@ O coração do sistema. Permite ao usuário gerenciar seu portfólio financeiro.
 | **Atualizar Dívida** | `PUT` | `/api/debt/{id}` | Edita valores ou detalhes de uma dívida existente. |
 | **Remover Dívida** | `DELETE` | `/api/debt/{id}` | Exclui permanentemente um registro. |
 
-#### 3. Inteligência Financeira (Simulações)
+#### 3. Simuladores
 Motor matemático que utiliza fórmulas de Juros Compostos (Tabela Price).
 
 | Funcionalidade | Método | Endpoint | Descrição |
